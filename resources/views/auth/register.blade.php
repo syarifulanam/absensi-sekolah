@@ -30,10 +30,20 @@
         </label>
     </div>
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('register') }}">
         @csrf
 
         <input type="hidden" name="role" id="selectedRole" value="admin">
+
+        <div class="mb-3">
+            <label class="form-label">Nama Lengkap</label>
+            <div class="input-group">
+                <span class="input-group-text">
+                    <i class="bi bi-person"></i>
+                </span>
+                <input type="text" name="name" class="form-control" placeholder="Nama lengkap" required autofocus>
+            </div>
+        </div>
 
         <div class="mb-3">
             <label class="form-label">Email</label>
@@ -41,7 +51,7 @@
                 <span class="input-group-text">
                     <i class="bi bi-envelope"></i>
                 </span>
-                <input type="email" name="email" class="form-control" placeholder="email@sekolah.id" required autofocus>
+                <input type="email" name="email" class="form-control" placeholder="email@sekolah.id" required>
             </div>
         </div>
 
@@ -55,25 +65,18 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="remember">
-                <label class="form-check-label">Ingat saya</label>
+        <div class="mb-3">
+            <label class="form-label">Konfirmasi Password</label>
+            <div class="input-group">
+                <span class="input-group-text">
+                    <i class="bi bi-lock-fill"></i>
+                </span>
+                <input type="password" name="password_confirmation" class="form-control" placeholder="••••••••" required>
             </div>
-
-            <div>
-                <a href="{{ route('forgot.password') }}" class="text-decoration-none">Forgot Password?</a>
-            </div>
-
         </div>
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <a href="{{ route('register') }}">Don't have an account? Register</a>
-        </div>
-
-        <button class="btn btn-primary w-100 py-2">
-            <i class="bi bi-box-arrow-in-right me-1"></i>
-            Login
+        <button class="btn btn-success w-100 py-2">
+            <i class="bi bi-person-plus me-1"></i> Daftar
         </button>
     </form>
 

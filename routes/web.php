@@ -3,26 +3,37 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', function () {
         return view('auth.login');
     })->name('login');
-
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.post');
+
+    Route::middleware('guest')->group(function () {
+        Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+        Route::post('/register', [RegisteredUserController::class, 'store'])->name('register');
+    });
+
+    Route::get('/forgot-password', [ResetPasswordController::class, 'showForgotForm'])->name('forgot.password');
+    Route::post('/forgot-password', [ResetPasswordController::class, 'sendResetLink'])->name('forgot.password.post');
+    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('reset.password');
+    Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('reset.password.post');
 });
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/dashboard', function () {
-        return view('dashboard.index');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')->middleware('auth');
+
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-    Route::resource('siswa', StudentController::class)->only(['index']);
+    Route::get('/siswa', [StudentController::class, 'index'])->name('siswa.index');
     Route::get('/qr/{barcode}', [StudentController::class, 'showQR'])->name('student.qr');
 
     Route::get('/absensi/scan', [AttendanceController::class, 'scanPage'])->name('absensi.scan.page');
@@ -33,7 +44,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/absensi', [AttendanceController::class, 'index'])->name('absensi.index');
 
-    // Route::middleware('auth')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
@@ -43,6 +53,3 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
     Route::put('/users/{user}/reset-password', [UserController::class, 'updatePassword'])->name('users.update-password');
 });
-
-    // Route::get('/laporan', [ReportController::class, 'index'])->name('laporan.index');
-// });

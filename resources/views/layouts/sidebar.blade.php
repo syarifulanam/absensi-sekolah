@@ -13,7 +13,6 @@
                 $role = auth()->user()->role;
             @endphp
 
-            {{-- Admin Menu --}}
             @if ($role === 'admin')
                 <li class="nav-item">
                     <a href="{{ url('/dashboard') }}"
@@ -45,8 +44,6 @@
                         <i class="bi bi-file-earmark-text"></i> <span class="ms-2">Laporan</span>
                     </a>
                 </li>
-
-                {{-- Guru Menu --}}
             @elseif($role === 'guru')
                 <li class="nav-item">
                     <a href="{{ url('/absensi/scan') }}"
@@ -66,8 +63,6 @@
                         <i class="bi bi-file-earmark-text"></i> <span class="ms-2">Laporan</span>
                     </a>
                 </li>
-
-                {{-- Siswa Menu --}}
             @elseif($role === 'siswa')
                 <li class="nav-item">
                     <a href="{{ url('/absensi/scan') }}"
