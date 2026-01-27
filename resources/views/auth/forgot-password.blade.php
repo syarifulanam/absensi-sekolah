@@ -19,7 +19,7 @@
         </div>
     @endif
 
-    <p class="text-center mb-3">Masukkan email Anda untuk menerima link reset password.</p>
+    <p class="text-center mb-3">Enter your email to receive the password reset link.</p>
 
     <form method="POST" action="{{ route('password.email') }}">
         @csrf
@@ -28,22 +28,22 @@
             <label class="form-label">Email</label>
             <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                <input type="email" name="email" class="form-control" placeholder="email@sekolah.id" required autofocus>
+                <input type="email" name="email" class="form-control" placeholder="email@school.id" required autofocus>
             </div>
         </div>
 
         <button class="btn btn-primary w-100 py-2">
-            <i class="bi bi-envelope-open me-1"></i> Kirim Link Reset
+            <i class="bi bi-envelope-open me-1"></i> Send Reset Link
         </button>
     </form>
 
     <div class="text-center mt-3">
-        <a href="{{ route('login') }}" class="text-decoration-none">Kembali ke Login</a>
+        <a href="{{ route('login') }}" class="text-decoration-none">Back to Login</a>
     </div>
 
     <div class="text-center mt-4">
         <small class="text-muted">
-            © {{ date('Y') }} E-Absensi Sekolah
+            © {{ date('Y') }} E-Absensi School
         </small>
     </div>
 @endsection

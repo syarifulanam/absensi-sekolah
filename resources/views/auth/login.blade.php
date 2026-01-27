@@ -19,14 +19,14 @@
             <i class="bi bi-shield-lock"></i> Admin
         </label>
 
-        <input type="radio" class="btn-check" name="role" id="guru" value="guru">
-        <label class="btn btn-outline-success" for="guru">
-            <i class="bi bi-person-badge"></i> Guru
+        <input type="radio" class="btn-check" name="role" id="teacher" value="guru">
+        <label class="btn btn-outline-success" for="teacher">
+            <i class="bi bi-person-badge"></i> Teacher
         </label>
 
-        <input type="radio" class="btn-check" name="role" id="siswa" value="siswa">
-        <label class="btn btn-outline-warning" for="siswa">
-            <i class="bi bi-mortarboard"></i> Siswa
+        <input type="radio" class="btn-check" name="role" id="student" value="siswa">
+        <label class="btn btn-outline-warning" for="student">
+            <i class="bi bi-mortarboard"></i> Student
         </label>
     </div>
 
@@ -41,7 +41,7 @@
                 <span class="input-group-text">
                     <i class="bi bi-envelope"></i>
                 </span>
-                <input type="email" name="email" class="form-control" placeholder="email@sekolah.id" required autofocus>
+                <input type="email" name="email" class="form-control" placeholder="email@school.id" required autofocus>
             </div>
         </div>
 
@@ -58,13 +58,12 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" name="remember">
-                <label class="form-check-label">Ingat saya</label>
+                <label class="form-check-label">Remember me</label>
             </div>
 
             <div>
                 <a href="{{ route('forgot.password') }}" class="text-decoration-none">Forgot Password?</a>
             </div>
-
         </div>
 
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -79,7 +78,7 @@
 
     <div class="text-center mt-4">
         <small class="text-muted">
-            © {{ date('Y') }} E-Absensi Sekolah
+            © {{ date('Y') }} E-Absensi School
         </small>
     </div>
 

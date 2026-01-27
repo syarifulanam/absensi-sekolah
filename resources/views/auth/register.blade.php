@@ -19,14 +19,14 @@
             <i class="bi bi-shield-lock"></i> Admin
         </label>
 
-        <input type="radio" class="btn-check" name="role" id="guru" value="guru">
-        <label class="btn btn-outline-success" for="guru">
-            <i class="bi bi-person-badge"></i> Guru
+        <input type="radio" class="btn-check" name="role" id="teacher" value="guru">
+        <label class="btn btn-outline-success" for="teacher">
+            <i class="bi bi-person-badge"></i> Teacher
         </label>
 
-        <input type="radio" class="btn-check" name="role" id="siswa" value="siswa">
-        <label class="btn btn-outline-warning" for="siswa">
-            <i class="bi bi-mortarboard"></i> Siswa
+        <input type="radio" class="btn-check" name="role" id="student" value="siswa">
+        <label class="btn btn-outline-warning" for="student">
+            <i class="bi bi-mortarboard"></i> Student
         </label>
     </div>
 
@@ -36,12 +36,12 @@
         <input type="hidden" name="role" id="selectedRole" value="admin">
 
         <div class="mb-3">
-            <label class="form-label">Nama Lengkap</label>
+            <label class="form-label">Full Name</label>
             <div class="input-group">
                 <span class="input-group-text">
                     <i class="bi bi-person"></i>
                 </span>
-                <input type="text" name="name" class="form-control" placeholder="Nama lengkap" required autofocus>
+                <input type="text" name="name" class="form-control" placeholder="Full name" required autofocus>
             </div>
         </div>
 
@@ -51,7 +51,7 @@
                 <span class="input-group-text">
                     <i class="bi bi-envelope"></i>
                 </span>
-                <input type="email" name="email" class="form-control" placeholder="email@sekolah.id" required>
+                <input type="email" name="email" class="form-control" placeholder="email@school.id" required>
             </div>
         </div>
 
@@ -66,7 +66,7 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Konfirmasi Password</label>
+            <label class="form-label">Confirm Password</label>
             <div class="input-group">
                 <span class="input-group-text">
                     <i class="bi bi-lock-fill"></i>
@@ -76,13 +76,13 @@
         </div>
 
         <button class="btn btn-success w-100 py-2">
-            <i class="bi bi-person-plus me-1"></i> Daftar
+            <i class="bi bi-person-plus me-1"></i> Register
         </button>
     </form>
 
     <div class="text-center mt-4">
         <small class="text-muted">
-            © {{ date('Y') }} E-Absensi Sekolah
+            © {{ date('Y') }} E-Absensi School
         </small>
     </div>
 
