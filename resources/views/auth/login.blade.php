@@ -7,14 +7,12 @@
         <small class="text-muted">School System</small>
     </div>
 
-    {{-- ALERT ERROR --}}
     @if ($errors->any())
         <div class="alert alert-danger py-2 text-center">
             {{ $errors->first() }}
         </div>
     @endif
 
-    {{-- PILIH ROLE --}}
     <div class="btn-group w-100 mb-3" role="group">
         <input type="radio" class="btn-check" name="role" id="admin" value="admin" checked>
         <label class="btn btn-outline-primary" for="admin">
@@ -35,7 +33,6 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        {{-- ROLE TERPILIH --}}
         <input type="hidden" name="role" id="selectedRole" value="admin">
 
         <div class="mb-3">
@@ -77,7 +74,6 @@
         </small>
     </div>
 
-    {{-- SCRIPT ROLE --}}
     <script>
         document.querySelectorAll('input[name="role"]').forEach(el => {
             el.addEventListener('change', function() {

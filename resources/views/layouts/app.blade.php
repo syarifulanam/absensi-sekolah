@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
-
 @include('layouts.head')
 
-<body>
+<body class="bg-light">
 
-    <div class="d-flex min-vh-100">
+    <div class="d-flex min-vh-100"> 
 
         @include('layouts.sidebar')
 
@@ -20,11 +19,9 @@
             @include('layouts.footer')
 
         </div>
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
     @stack('js')
 
 </body>
