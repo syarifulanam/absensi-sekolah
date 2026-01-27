@@ -2,85 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
 use App\Models\Attendance;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
-    public function scanPage()
+    // Halaman daftar absensi
+    public function index()
     {
-        $today = Attendance::whereDate('date', today())->with('student')->get();
-        return view('attendance.scan', compact('today'));
+        $attendances = Attendance::with('student')->orderBy('date', 'desc')->get();
+        return view('absensi.index', compact('attendances'));
     }
 
-    public function scanStore(Request $request)
-    {
-        $student = Student::where('barcode', $request->barcode)->first();
-
-        if (!$student) {
-            return response()->json(['error' => 'Siswa tidak ditemukan']);
-        }
-
-        $exists = Attendance::where('student_id', $student->id)
-            ->whereDate('date', today())
-            ->exists();
-
-        if ($exists) {
-            return response()->json(['error' => 'Sudah absen hari ini']);
-            Attendance::create([
-                'student_id' => $student->id,
-                'date' => today(),
-                'time' => now()->format('H:i:s'),
-                'status' => 'hadir'
-            ]);
-
-            return response()->json(['success' => true]);
-        }
-    }
-
+    // Halaman scan kamera
     public function scanCamera()
     {
-        return view('attendance.scan-camera');
+        return view('absensi.scan-camera'); // buat view scan-camera.blade.php
     }
 
+    // Proses simpan hasil scan kamera
     public function scanCameraStore(Request $request)
     {
         $request->validate([
-            'barcode' => 'required'
+            'barcode' => 'required|exists:students,barcode',
         ]);
 
         $student = Student::where('barcode', $request->barcode)->first();
 
-        if (!$student) {
-            return response()->json([
-                'success' => false,
-                'message' => 'QR tidak valid'
-            ]);
-        }
-
-        $exists = Attendance::where('student_id', $student->id)
-            ->whereDate('date', today())
-            ->exists();
-
-        if ($exists) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Siswa sudah absen hari ini'
-            ]);
-        }
-
         Attendance::create([
             'student_id' => $student->id,
-            'date' => today(),
-            'time' => now()->format('H:i:s'),
-            'status' => 'hadir'
+            'date' => now()->toDateString(),
+            'time' => now()->toTimeString(),
+            'status' => 'hadir',
         ]);
 
-        return response()->json([
-            'success' => true,
-            'name' => $student->name,
-            'class' => $student->class
-        ]);
+        return redirect()->back()->with('success', 'Absensi berhasil!');
+    }
+
+    // Monitoring absensi (misal untuk guru/admin)
+    public function monitoring()
+    {
+        $attendances = Attendance::with('student')->orderBy('date', 'desc')->get();
+        return view('absensi.monitoring', compact('attendances')); // buat view monitoring.blade.php
     }
 }

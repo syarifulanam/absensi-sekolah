@@ -8,16 +8,16 @@
 <body>
     <div class="d-flex min-vh-100">
 
-        @include('layouts.sidebar') <!-- Sidebar -->
+        @include('layouts.sidebar')
 
         <div class="flex-fill d-flex flex-column">
-            @include('layouts.topbar') <!-- Topbar -->
+            @include('layouts.topbar')
 
             <main class="flex-fill p-4 bg-light">
-                @yield('content') <!-- Konten dashboard muncul di sini -->
+                @yield('content')
             </main>
 
-            @include('layouts.footer') <!-- Footer -->
+            @include('layouts.footer')
         </div>
     </div>
 
