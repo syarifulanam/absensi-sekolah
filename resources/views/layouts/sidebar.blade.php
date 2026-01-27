@@ -43,8 +43,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url('/scan-camera') }}"
-                        class="nav-link text-white {{ request()->is('scan-camera') ? 'active bg-primary' : '' }}">
+                    <a href="{{ url('/attendance/scan-camera') }}"
+                        class="nav-link text-white {{ request()->is('attendance/scan-camera') ? 'active bg-primary' : '' }}">
                         <i class="bi bi-camera"></i> <span class="ms-2">QR Scan Camera</span>
                     </a>
                 </li>
@@ -66,7 +66,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url('/scan-camera') }}"
+                    <a href="{{ url('/attendance/scan-camera') }}"
                         class="nav-link text-white {{ request()->is('scan-camera') ? 'active bg-primary' : '' }}">
                         <i class="bi bi-camera"></i> <span class="ms-2">QR Scan Camera</span>
                     </a>
@@ -82,13 +82,13 @@
 
             @if ($role === 'siswa')
                 <li class="nav-item mb-2">
-                    <a href="{{ url('/mycard') }}"
-                        class="nav-link text-white {{ request()->is('>mycard*') ? 'active bg-primary' : '' }}">
+                    <a href="{{ url('student/my-card') }}"
+                        class="nav-link text-white {{ request()->is('my-card*') ? 'active bg-primary' : '' }}">
                         <i class="bi bi-card-list"></i> <span class="ms-2">My Card</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('/scan-camera') }}"
+                    <a href="{{ url('/attendance/scan-camera') }}"
                         class="nav-link text-white {{ request()->is('scan-camera') ? 'active bg-primary' : '' }}">
                         <i class="bi bi-camera"></i> <span class="ms-2">QR Scan Camera</span>
                     </a>

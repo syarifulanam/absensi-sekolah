@@ -15,7 +15,7 @@ class AuthenticatedSessionController extends Controller
         $credentials = $request->validate([
             'email'    => ['required', 'email'],
             'password' => ['required'],
-            'role'     => ['required', 'in:admin,guru,siswa'],
+            'role'     => ['required', 'in:admin,teacher,student'],
         ]);
 
         if (!Auth::attempt([
@@ -24,7 +24,7 @@ class AuthenticatedSessionController extends Controller
         ], $request->boolean('remember'))) {
 
             return back()->withErrors([
-                'email' => 'Email atau password salah',
+                'email' => 'Incorrect email or password',
             ])->onlyInput('email');
         }
 
@@ -34,14 +34,14 @@ class AuthenticatedSessionController extends Controller
             Auth::logout();
 
             return back()->withErrors([
-                'email' => 'Role tidak sesuai dengan akun',
+                'email' => 'Role does not match the account',
             ]);
         }
 
         return match (auth()->user()->role) {
             'admin' => redirect()->intended('/dashboard'),
-            'guru'  => redirect()->intended('/absensi/scan-camera'),
-            'siswa' => redirect()->intended('/absensi-saya'),
+            'guru'  => redirect()->intended('/scan-camera'),
+            'siswa' => redirect()->intended('/attendance'),
             default => redirect('/'),
         };
     }

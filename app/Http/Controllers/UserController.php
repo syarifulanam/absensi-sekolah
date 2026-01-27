@@ -37,7 +37,7 @@ class UserController extends Controller
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users,email',
             'password' => 'required|string|min:6',
-            'role'     => 'required|in:admin,guru,siswa',
+            'role'     => 'required|in:admin,teacher,student',
         ]);
 
         User::create([
@@ -47,7 +47,7 @@ class UserController extends Controller
             'role'     => $request->role,
         ]);
 
-        return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan!');
+        return redirect()->route('users.index')->with('success', 'User added successfully!');
     }
 
     public function edit(User $user)
@@ -61,7 +61,7 @@ class UserController extends Controller
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:6',
-            'role'     => 'required|in:admin,guru,siswa',
+            'role'     => 'required|in:admin,teacher,student',
         ]);
 
         $user->name = $request->name;
@@ -74,12 +74,12 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('users.index')->with('success', 'User berhasil diupdate!');
+        return redirect()->route('users.index')->with('success', 'User updated successfully!');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'User berhasil dihapus!');
+        return redirect()->route('users.index')->with('success', 'User has been successfully deleted!');
     }
 }

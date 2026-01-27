@@ -21,7 +21,7 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6|confirmed',
-            'role' => 'required|in:admin,guru,siswa',
+            'role' => 'required|in:admin,teacher,student',
         ]);
 
         $user = User::create([
@@ -33,6 +33,6 @@ class RegisteredUserController extends Controller
 
         auth()->login($user);
 
-        return redirect()->route('dashboard')->with('success', 'Registrasi berhasil!');
+        return redirect()->route('dashboard')->with('success', 'Registration successful!');
     }
 }

@@ -32,27 +32,20 @@ class StudentController extends Controller
         ]);
     }
 
-    public function scanPage()
+    public function scanCamera()
     {
-        return view('student.scan');
+        return view('student.scan-camera');
     }
 
-    public function scanStore(Request $request)
+
+    public function scanPage()
     {
-        $request->validate([
-            'barcode' => 'required|string',
-        ]);
+        return view('students.scan');
+    }
 
-        $student = auth()->user();
-
-        Attendance::create([
-            'student_id' => $student->id,
-            'date'       => now()->format('Y-m-d'),
-            'time'       => now()->format('H:i:s'),
-            'status'     => 'hadir',
-            'date' => now(),
-        ]);
-
-        return redirect()->back()->with('success', 'Absensi berhasil tercatat!');
+    public function scanCameraStore(Request $request)
+    {
+        $barcode = $request->barcode;
+        return redirect()->back()->with('success', 'Attendance recorded: ' . $barcode);
     }
 }

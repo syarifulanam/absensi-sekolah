@@ -1,20 +1,24 @@
 @extends('layouts.app')
 
-@section('page_title', 'Monitoring Absensi')
-@section('page_subtitle', 'Pantau absensi siswa')
+@section('page_title', 'Attendance List')
+@section('page_subtitle', 'Student Attendance')
 
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title mb-3">Monitoring Absensi</h5>
+            <h5 class="card-title mb-3">Attendance List</h5>
 
-            <table class="table table-hover table-bordered">
-                <thead class="table-dark">
+            @if (session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+
+            <table class="table table-striped">
+                <thead>
                     <tr>
                         <th>#</th>
-                        <th>Nama Siswa</th>
-                        <th>Tanggal</th>
-                        <th>Waktu</th>
+                        <th>Student Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -29,7 +33,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center">Belum ada absensi</td>
+                            <td colspan="5" class="text-center">No attendance records yet</td>
                         </tr>
                     @endforelse
                 </tbody>
