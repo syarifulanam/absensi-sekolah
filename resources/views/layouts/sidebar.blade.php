@@ -10,7 +10,7 @@
     <ul class="nav nav-pills flex-column gap-1">
         @auth
             @php
-                $role = auth()->user()->role;
+                $role = auth()->user()->role ?? '';
             @endphp
 
             @if ($role === 'admin')

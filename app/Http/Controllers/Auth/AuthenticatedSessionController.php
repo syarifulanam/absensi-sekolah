@@ -46,47 +46,13 @@ class AuthenticatedSessionController extends Controller
         };
     }
 
-    // public function showForgotForm()
-    // {
-    //     return view('auth.forgot-password');
-    // }
+    public function destroy(Request $request)
+    {
+        Auth::logout();
 
-    // public function sendResetLink(Request $request)
-    // {
-    //     $request->validate(['email' => 'required|email']);
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-    //     $status = Password::sendResetLink(
-    //         $request->only('email')
-    //     );
-
-    //     return $status === Password::RESET_LINK_SENT
-    //         ? back()->with('status', __($status))
-    //         : back()->withErrors(['email' => __($status)]);
-    // }
-
-    // public function showResetForm($token)
-    // {
-    //     return view('auth.reset-password', ['token' => $token]);
-    // }
-
-    // public function reset(Request $request)
-    // {
-    //     $request->validate([
-    //         'token'    => 'required',
-    //         'email'    => 'required|email',
-    //         'password' => 'required|string|min:6|confirmed',
-    //     ]);
-
-    //     $status = Password::reset(
-    //         $request->only('email', 'password', 'password_confirmation', 'token'),
-    //         function ($user, $password) {
-    //             $user->password = Hash::make($password);
-    //             $user->save();
-    //         }
-    //     );
-
-    //     return $status === Password::PASSWORD_RESET
-    //         ? redirect()->route('login')->with('success', 'Password berhasil diubah!')
-    //         : back()->withErrors(['email' => [__($status)]]);
-    // }
+        return redirect()->route('login');
+    }
 }
