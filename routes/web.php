@@ -3,10 +3,19 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
-Route::get('/', fn() => redirect('/dashboard'));
+Route::get('/login', function () {
+    return view('auth.login');
+})->middleware('guest')->name('login');
 
-// Route::get('/dashboard', [DashboardController::class,'index']);
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard.index');
+    });
+
+    Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+});
 
 Route::resource('/siswa', StudentController::class)->only(['index']);
 Route::get('/qr/{barcode}', [StudentController::class, 'showQR'])
