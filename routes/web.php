@@ -1,7 +1,59 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', function () {
+        return view('auth.login');
+    })->name('login');
+    Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.post');
+
+    Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::post('/register', [RegisteredUserController::class, 'store'])->name('register');
+
+    Route::get('/forgot-password', [ResetPasswordController::class, 'showForgotForm'])->name('forgot.password');
+    Route::post('/forgot-password', [ResetPasswordController::class, 'sendResetLink'])->name('forgot.password.post');
+
+    Route::get('/users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
+    Route::put('/users/{user}/reset-password', [UserController::class, 'updatePassword'])->name('users.update-password');
+});
+
+Route::middleware('auth')->group(function () {
+
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    // Route::get('/student/my-card', [StudentController::class, 'myCard'])->name('student.mycard');
+    // Route::get('/student/my-card', [AttendanceController::class, 'myCard'])->name('student.mycard');
+    Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
+    Route::get('/attendance/scan-camera', [AttendanceController::class, 'scanCamera'])->name('attendance.scan.camera.page');
+    Route::post('/attendance/scan-camera', [AttendanceController::class, 'scanCameraStore'])->name('attendance.scan.camera.store');
+    Route::get('/attendance/monitoring', [AttendanceController::class, 'monitoring'])->name('attendance.monitoring');
+    Route::get('/attendance/monitoring/data', [AttendanceController::class, 'monitoringData'])->name('attendance.monitoring.data');
+    Route::put('/attendance/{attendance}/update', [AttendanceController::class, 'update'])->name('attendance.update');
+    Route::get('/reports', [AttendanceController::class, 'report'])->name('reports.index');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/student/my-card', [StudentController::class, 'myCard'])->name('student.my-card');
+
+    Route::get('/student/attendance', [StudentController::class, 'attendance'])->name('student.attendance');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
+    Route::put('/users/{user}/reset-password', [UserController::class, 'updatePassword'])->name('users.update-password');
 });
