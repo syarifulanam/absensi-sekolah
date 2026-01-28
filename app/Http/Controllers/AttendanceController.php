@@ -10,34 +10,55 @@ class AttendanceController extends Controller
 {
     public function index()
     {
-        $attendances = Attendance::with('student')->orderBy('date', 'desc')->get();
+        $student = Student::where('user_id', auth()->id())->first();
+
+        if (!$student) {
+            return view('attendance.index', ['attendances' => collect()]);
+        }
+
+        $attendances = Attendance::with('student')
+            ->where('student_id', $student->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         return view('attendance.index', compact('attendances'));
     }
 
     public function scanCamera()
     {
-        return view('students.scan-camera');
+        return view('attendance.scan-camera');
     }
 
 
     public function scanCameraStore(Request $request)
     {
         $request->validate([
-            'barcode' => 'required|string',
+            'barcode' => 'required',
         ]);
+
+        $student = Student::where('user_id', auth()->id())->first();
+
+        if (!$student) {
+            return back()->withErrors('Student data not found for this user.');
+        }
 
         Attendance::create([
-            'barcode' => $request->barcode,
-            'created_at' => now(),
+            'student_id' => $student->id,
+            'barcode'    => $request->barcode,
+            'status'     => 'hadir',
+            'date'       => now()->toDateString(),
+            'time'       => now()->toTimeString(),
         ]);
 
-        return redirect()->back()->with('success', 'Attendance recorded: ' . $request->barcode);
+        return back()->with('success', 'Attendance recorded');
     }
 
 
     public function monitoring()
     {
-        return view('attendance.monitoring');
+        $attendances = Attendance::with('student')->latest()->take(50)->get();
+
+        return view('attendance.monitoring', compact('attendances'));
     }
 
     public function monitoringData()
@@ -57,5 +78,11 @@ class AttendanceController extends Controller
         ]);
 
         return response()->json(['success' => true, 'message' => 'Attendance updated']);
+    }
+
+    public function report()
+    {
+        $attendances = Attendance::latest()->take(50)->get();
+        return view('reports.index', compact('attendances'));
     }
 }

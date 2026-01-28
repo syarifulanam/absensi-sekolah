@@ -30,23 +30,24 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-    Route::get('/student/my-card', [StudentController::class, 'myCard'])->name('student.mycard');
+    // Route::get('/student/my-card', [StudentController::class, 'myCard'])->name('student.mycard');
 
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
+    Route::get('/attendance/my-card', [AttendanceController::class, 'myCard'])->name('student.mycard');
     Route::get('/attendance/scan-camera', [AttendanceController::class, 'scanCamera'])->name('attendance.scan.camera.page');
-    Route::post('/attendance/scan-camera', [AttendanceController::class, 'scanCameraStore'])->name('attendance.scan.camera');
+    Route::post('/attendance/scan-camera', [AttendanceController::class, 'scanCameraStore'])->name('attendance.scan.camera.store');
     Route::get('/attendance/monitoring', [AttendanceController::class, 'monitoring'])->name('attendance.monitoring');
     Route::get('/attendance/monitoring/data', [AttendanceController::class, 'monitoringData'])->name('attendance.monitoring.data');
     Route::put('/attendance/{attendance}/update', [AttendanceController::class, 'update'])->name('attendance.update');
-
-    Route::middleware(['auth'])->group(function () {
-        Route::get('/users', [UserController::class, 'index'])->name('users.index');
-        Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
-        Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
-        Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-        Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
-        Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-        Route::get('/users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
-        Route::put('/users/{user}/reset-password', [UserController::class, 'updatePassword'])->name('users.update-password');
-    });
+    Route::get('/reports', [AttendanceController::class, 'report'])->name('reports.index');
+});
+Route::middleware(['auth'])->group(function () {
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
+    Route::put('/users/{user}/reset-password', [UserController::class, 'updatePassword'])->name('users.update-password');
 });

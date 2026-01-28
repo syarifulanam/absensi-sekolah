@@ -19,12 +19,12 @@
             <i class="bi bi-shield-lock"></i> Admin
         </label>
 
-        <input type="radio" class="btn-check" name="role" id="teacher" value="guru">
+        <input type="radio" class="btn-check" name="role" id="teacher" value="teacher">
         <label class="btn btn-outline-success" for="teacher">
             <i class="bi bi-person-badge"></i> Teacher
         </label>
 
-        <input type="radio" class="btn-check" name="role" id="student" value="siswa">
+        <input type="radio" class="btn-check" name="role" id="student" value="student">
         <label class="btn btn-outline-warning" for="student">
             <i class="bi bi-mortarboard"></i> Student
         </label>

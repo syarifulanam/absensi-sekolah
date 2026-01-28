@@ -40,8 +40,8 @@ class AuthenticatedSessionController extends Controller
 
         return match (auth()->user()->role) {
             'admin' => redirect()->intended('/dashboard'),
-            'guru'  => redirect()->intended('/scan-camera'),
-            'siswa' => redirect()->intended('/attendance'),
+            'teacher'  => redirect()->intended('/scan-camera'),
+            'student' => redirect()->intended('student/attendance'),
             default => redirect('/'),
         };
     }

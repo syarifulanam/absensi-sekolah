@@ -12,4 +12,9 @@ class Student extends Model
     {
         return $this->hasMany(Attendance::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

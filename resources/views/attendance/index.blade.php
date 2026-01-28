@@ -8,18 +8,14 @@
         <div class="card-body">
             <h5 class="card-title mb-3">Attendance List</h5>
 
-            @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Student Name</th>
+                        <th>Student</th>
+                        <th>Status</th>
                         <th>Date</th>
                         <th>Time</th>
-                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,13 +23,15 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $attendance->student->name ?? '-' }}</td>
+                            <td>{{ ucfirst($attendance->status) }}</td>
                             <td>{{ $attendance->date }}</td>
                             <td>{{ $attendance->time }}</td>
-                            <td>{{ ucfirst($attendance->status) }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center">No attendance records yet</td>
+                            <td colspan="5" class="text-center text-muted">
+                                No attendance data
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>
