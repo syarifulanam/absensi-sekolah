@@ -3,10 +3,10 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="fw-bold mb-0">
-            <i class="bi bi-people me-1"></i> Tambah User
+            <i class="bi bi-people me-1"></i> Add User
         </h4>
         <a href="{{ route('users.index') }}" class="btn btn-secondary">
-            <i class="bi bi-arrow-left-circle me-1"></i> Kembali
+            <i class="bi bi-arrow-left-circle me-1"></i> Back
         </a>
     </div>
 
@@ -26,7 +26,7 @@
                 @csrf
 
                 <div class="mb-3">
-                    <label for="name" class="form-label">Nama Lengkap</label>
+                    <label for="name" class="form-label">Full Name</label>
                     <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}"
                         required>
                 </div>
@@ -43,19 +43,12 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="role" class="form-label">Role</label>
-                    <select name="role" id="role" class="form-select" required>
-                        <option value="">-- Pilih Role --</option>
-                        <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                        <option value="guru" {{ old('role') == 'guru' ? 'selected' : '' }}>Guru</option>
-                        <option value="siswa" {{ old('role') == 'siswa' ? 'selected' : '' }}>Siswa</option>
-                    </select>
+                    <label for="password_confirmation" class="form-label">Confirm Password</label>
+                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control"
+                        required>
                 </div>
 
-                <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-plus-circle me-1"></i> Tambah User
-                </button>
-            </form>
-        </div>
-    </div>
-@endsection
+                <div class="mb-3">
+                    <label for="role" class="form-label">Role</label>
+                    <select name="role" id="role" class="form-select" required>
+                        <option value="">-- Select Role

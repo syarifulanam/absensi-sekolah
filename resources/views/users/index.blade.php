@@ -3,13 +3,13 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="fw-bold mb-0">
-            <i class="bi bi-people me-1"></i> Manajemen Users
+            <i class="bi bi-people me-1"></i> User Management
         </h4>
 
         @auth
             @if (auth()->user()->role === 'admin')
                 <a href="{{ route('users.create') }}" class="btn btn-primary">
-                    <i class="bi bi-plus-circle me-1"></i> Tambah User
+                    <i class="bi bi-plus-circle me-1"></i> Add User
                 </a>
             @endif
         @endauth
@@ -27,10 +27,10 @@
                 <thead class="table-light">
                     <tr>
                         <th>#</th>
-                        <th>Nama</th>
+                        <th>Name</th>
                         <th>Email</th>
                         <th>Role</th>
-                        <th class="text-center">Aksi</th>
+                        <th class="text-center">Actions</th>
                     </tr>
                 </thead>
 
@@ -60,7 +60,7 @@
                                 </a>
 
                                 <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline"
-                                    onsubmit="return confirm('Yakin hapus user ini?')">
+                                    onsubmit="return confirm('Are you sure you want to delete this user?')">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-sm btn-danger">
@@ -72,7 +72,7 @@
                     @empty
                         <tr>
                             <td colspan="5" class="text-center text-muted py-4">
-                                Data user belum tersedia
+                                No user data available
                             </td>
                         </tr>
                     @endforelse

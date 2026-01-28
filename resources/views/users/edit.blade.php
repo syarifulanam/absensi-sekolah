@@ -6,7 +6,7 @@
             <i class="bi bi-people me-1"></i> Edit User
         </h4>
         <a href="{{ route('users.index') }}" class="btn btn-secondary">
-            <i class="bi bi-arrow-left-circle me-1"></i> Kembali
+            <i class="bi bi-arrow-left-circle me-1"></i> Back
         </a>
     </div>
 
@@ -24,10 +24,10 @@
         <div class="card-body">
             <form action="{{ route('users.update', $user->id) }}" method="POST">
                 @csrf
-                @method('PATCH')
+                @method('PUT')
 
                 <div class="mb-3">
-                    <label for="name" class="form-label">Nama Lengkap</label>
+                    <label for="name" class="form-label">Full Name</label>
                     <input type="text" name="name" id="name" class="form-control"
                         value="{{ old('name', $user->name) }}" required>
                 </div>
@@ -39,18 +39,20 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password <small class="text-muted">(kosongkan jika tidak
-                            diubah)</small></label>
+                    <label for="password" class="form-label">Password <small class="text-muted">(leave blank if not
+                            changing)</small></label>
                     <input type="password" name="password" id="password" class="form-control">
                 </div>
 
                 <div class="mb-3">
                     <label for="role" class="form-label">Role</label>
                     <select name="role" id="role" class="form-select" required>
-                        <option value="">-- Pilih Role --</option>
+                        <option value="">-- Select Role --</option>
                         <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
-                        <option value="guru" {{ old('role', $user->role) == 'guru' ? 'selected' : '' }}>Guru</option>
-                        <option value="siswa" {{ old('role', $user->role) == 'siswa' ? 'selected' : '' }}>Siswa</option>
+                        <option value="teacher" {{ old('role', $user->role) == 'teacher' ? 'selected' : '' }}>Teacher
+                        </option>
+                        <option value="student" {{ old('role', $user->role) == 'student' ? 'selected' : '' }}>Student
+                        </option>
                     </select>
                 </div>
 

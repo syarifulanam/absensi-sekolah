@@ -55,6 +55,13 @@
                         <i class="bi bi-file-earmark-text"></i> <span class="ms-2">Reports</span>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('users') }}"
+                        class="nav-link text-white {{ request()->is('users*') ? 'active bg-primary' : '' }}">
+                        <i class="bi bi-people"></i> <span class="ms-2">Users</span>
+                    </a>
+                </li>
             @endif
 
             @if ($role === 'guru')
@@ -76,6 +83,13 @@
                     <a href="{{ url('/reports') }}"
                         class="nav-link text-white {{ request()->is('reports*') ? 'active bg-primary' : '' }}">
                         <i class="bi bi-file-earmark-text"></i> <span class="ms-2">Reports</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('users') }}"
+                        class="nav-link text-white {{ request()->is('users*') ? 'active bg-primary' : '' }}">
+                        <i class="bi bi-people"></i> <span class="ms-2">Users</span>
                     </a>
                 </li>
             @endif
