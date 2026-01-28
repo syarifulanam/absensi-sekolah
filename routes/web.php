@@ -31,9 +31,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     // Route::get('/student/my-card', [StudentController::class, 'myCard'])->name('student.mycard');
-
+    // Route::get('/student/my-card', [AttendanceController::class, 'myCard'])->name('student.mycard');
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
-    Route::get('/attendance/my-card', [AttendanceController::class, 'myCard'])->name('student.mycard');
     Route::get('/attendance/scan-camera', [AttendanceController::class, 'scanCamera'])->name('attendance.scan.camera.page');
     Route::post('/attendance/scan-camera', [AttendanceController::class, 'scanCameraStore'])->name('attendance.scan.camera.store');
     Route::get('/attendance/monitoring', [AttendanceController::class, 'monitoring'])->name('attendance.monitoring');
@@ -41,6 +40,13 @@ Route::middleware('auth')->group(function () {
     Route::put('/attendance/{attendance}/update', [AttendanceController::class, 'update'])->name('attendance.update');
     Route::get('/reports', [AttendanceController::class, 'report'])->name('reports.index');
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/student/my-card', [StudentController::class, 'myCard'])->name('student.my-card');
+
+    Route::get('/student/attendance', [StudentController::class, 'attendance'])->name('student.attendance');
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');

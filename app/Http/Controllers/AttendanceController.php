@@ -13,7 +13,7 @@ class AttendanceController extends Controller
         $student = Student::where('user_id', auth()->id())->first();
 
         if (!$student) {
-            return view('attendance.index', ['attendances' => collect()]);
+            return back()->withErrors('Student data not found.');
         }
 
         $attendances = Attendance::with('student')
@@ -36,11 +36,7 @@ class AttendanceController extends Controller
             'barcode' => 'required',
         ]);
 
-        $student = Student::where('user_id', auth()->id())->first();
-
-        if (!$student) {
-            return back()->withErrors('Student data not found for this user.');
-        }
+        $student = Student::where('user_id', auth()->id())->firstOrFail();
 
         Attendance::create([
             'student_id' => $student->id,
@@ -53,13 +49,16 @@ class AttendanceController extends Controller
         return back()->with('success', 'Attendance recorded');
     }
 
-
     public function monitoring()
     {
-        $attendances = Attendance::with('student')->latest()->take(50)->get();
+        if (!in_array(auth()->user()->role, ['admin', 'teacher'])) {
+            abort(403);
+        }
 
+        $attendances = Attendance::with('student')->latest()->get();
         return view('attendance.monitoring', compact('attendances'));
     }
+
 
     public function monitoringData()
     {
@@ -82,7 +81,11 @@ class AttendanceController extends Controller
 
     public function report()
     {
-        $attendances = Attendance::latest()->take(50)->get();
+        if (!in_array(auth()->user()->role, ['admin', 'teacher'])) {
+            abort(403);
+        }
+
+        $attendances = Attendance::with('student')->latest()->get();
         return view('reports.index', compact('attendances'));
     }
 }

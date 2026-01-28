@@ -66,26 +66,24 @@
 
             @if ($role === 'student')
                 <li class="nav-item">
-                    <a href="{{ url('/student/attendance') }}"
-                        class="nav-link text-white {{ request()->is('student/attendance*') ? 'active bg-primary' : '' }}">
+                    <a href="{{ route('student.attendance') }}"
+                        class="nav-link text-white {{ request()->routeIs('student.attendance') ? 'active bg-primary' : '' }}">
                         <i class="bi bi-list-check"></i>
                         <span class="ms-2">My Attendance</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url('/student/my-card') }}"
-                        class="nav-link text-white {{ request()->is('student/my-card*') ? 'active bg-primary' : '' }}">
+                    <a href="{{ route('student.my-card') }}"
+                        class="nav-link text-white {{ request()->routeIs('student.my-card') ? 'active bg-primary' : '' }}">
                         <i class="bi bi-card-list"></i>
                         <span class="ms-2">My Card</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url('/attendance/scan-camera') }}"
-                        class="nav-link text-white {{ request()->is('attendance/scan-camera') ? 'active bg-primary' : '' }}">
-                        <i class="bi bi-camera"></i>
-                        <span class="ms-2">QR Scan Camera</span>
+                    <a href="{{ route('attendance.scan.camera.page') }}" class="nav-link text-white">
+                        <i class="bi bi-camera"></i> <span class="ms-2">QR Scan Camera</span>
                     </a>
                 </li>
             @endif
